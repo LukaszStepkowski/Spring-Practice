@@ -8,5 +8,8 @@ public class TestNoSpring {
     @Test
     void Test(){
         Assertions.assertEquals(1, 1);
+
+        BeanB b = new BeanB(new BeanA(), new BeanC());
+        b.sayHello();
     }
 }
