@@ -8,9 +8,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class ShopAppApplication {
 
 	public static void main(String[] args) {
-		var context = SpringApplication.run(ShopAppApplication.class, args);
-		var beanA = context.getBean(BeanA.class);
-		beanA.sayHello();
+		SpringApplication.run(ShopAppApplication.class, args);
 	}
 
 }

@@ -7,12 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class ShopAppApplicationTests {
 
-	@Autowired
-	private BeanB beanB;
-
 	@Test
 	void contextLoads() {
-		beanB.sayHello();
 	}
 
 }
