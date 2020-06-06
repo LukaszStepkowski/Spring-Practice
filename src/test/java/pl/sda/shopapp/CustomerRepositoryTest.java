@@ -11,6 +11,7 @@ import pl.sda.shopapp.repository.CustomerRepository;
 import java.util.Arrays;
 import java.util.List;
 
+import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -31,7 +32,7 @@ public class CustomerRepositoryTest {
         company.addAddress(companyAddress);
 
         //when
-        repository.saveAll(Arrays.asList(person, company));
+        repository.saveAll(asList(person, company));
         /*
         same as
         repository.save(person);
@@ -72,13 +73,42 @@ public class CustomerRepositoryTest {
         var company = new Company(new VatNumber("1234567890"), "Test S.A.");
         var company2 = new Company(new VatNumber("1234567890"), "Testuj S.A.");
         var person = new Person("Jan", "Kowalski", "123456789");
-        repository.saveAll(Arrays.asList(company, company2, person));
+        repository.saveAll(asList(company, company2, person));
 
         //when
         var customers = repository.findByNameStartingWith("Test");
 
         //then
         assertEquals(2, customers.size());
+    }
 
+    @Test
+    void testHqlFindByTaxId(){
+        //given
+        var company1 = new Company(new VatNumber("1234567890"), "Test S.A.");
+        var company2 = new Company(new VatNumber("1234567891"), "Testuj S.A.");
+        repository.saveAll(asList(company1, company2));
+
+        //when
+        var customerOptional = repository.findByTaxId("1234567891");
+
+        //then
+        assertTrue(customerOptional.isPresent());
+        assertEquals(company2, customerOptional.get());
+    }
+
+    @Test
+    void testHqlFindByFirstAndLastName(){
+        //given
+        var person1 = new Person("Jan", "Kowalski", "123456789");
+        var person2 = new Person("Jan", "Nowak", "789456123");
+        repository.saveAll(asList(person1, person2));
+
+        //when
+        var customers = repository.findPerson("Jan%", "Kow%");
+
+        //then
+        assertEquals(1, customers.size());
+        assertEquals(person1, customers.get(0));
     }
 }
