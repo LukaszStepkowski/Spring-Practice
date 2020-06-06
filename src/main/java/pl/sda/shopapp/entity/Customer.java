@@ -22,11 +22,11 @@ public abstract class Customer {
     private String name;
     private String taxId;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Address> addresses;
 
     @JpaOnly
-    private Customer() {
+    protected Customer() {
     }
 
     public Customer(String name, String taxId) {
