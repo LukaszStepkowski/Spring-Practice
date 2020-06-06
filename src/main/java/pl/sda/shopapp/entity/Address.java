@@ -1,5 +1,7 @@
 package pl.sda.shopapp.entity;
 
+import pl.sda.shopapp.util.JpaOnly;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -18,7 +20,7 @@ public class Address {
     private String zipCode;
     private String country;
 
-    //only for JPA
+    @JpaOnly
     private Address() {
     }
 
