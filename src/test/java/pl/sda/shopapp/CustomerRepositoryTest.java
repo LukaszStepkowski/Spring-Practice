@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import pl.sda.shopapp.entity.*;
 import pl.sda.shopapp.repository.CustomerRepository;
@@ -110,5 +111,26 @@ public class CustomerRepositoryTest {
         //then
         assertEquals(1, customers.size());
         assertEquals(person1, customers.get(0));
+    }
+
+    @Test
+    void testHqlFindCustomerByCity(){
+        //given
+        var company = new Company(new VatNumber("1234567890"), "Test S.A.");
+        var companyAddress = new Address("test", "Wawa", "01-500", "PL");
+        company.addAddress(companyAddress);
+
+        var person = new Person("Jan", "Kowalski", "123456789");
+        var address = new Address("test", "Krakow", "01-500", "PL");
+        person.addAddress(address);
+
+        repository.saveAll(asList(company, person));
+
+        //when
+        var customers = repository.findByCity("Wawa", PageRequest.of(0, 10, Sort.by(Sort.Direction.ASC, "name")));
+
+        //then
+        assertEquals(1, customers.getTotalElements());
+        assertEquals(company, customers.getContent().get(0));
     }
 }
