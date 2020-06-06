@@ -3,6 +3,7 @@ package pl.sda.shopapp.entity;
 import pl.sda.shopapp.util.JpaOnly;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -33,6 +34,7 @@ public abstract class Customer {
         this.id = UUID.randomUUID();
         this.name = name;
         this.taxId = taxId;
+        this.addresses = new ArrayList<>();
     }
 
     public UUID getId() {
@@ -45,6 +47,16 @@ public abstract class Customer {
 
     public String getTaxId() {
         return taxId;
+    }
+
+    public void addAddress(Address address){
+        if (!addresses.contains(address)) {
+            addresses.add(address);
+        }
+    }
+
+    public List<Address> getAddresses() {
+        return new ArrayList<>(addresses);
     }
 
     @Override
