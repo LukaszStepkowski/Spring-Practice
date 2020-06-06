@@ -65,4 +65,20 @@ public class CustomerRepositoryTest {
         assertFalse(customers.isEmpty());
         assertEquals("Test S.A.", customers.get(0).getName());
     }
+
+    @Test
+    void testFindByNameStartingWith(){
+        //given
+        var company = new Company(new VatNumber("1234567890"), "Test S.A.");
+        var company2 = new Company(new VatNumber("1234567890"), "Testuj S.A.");
+        var person = new Person("Jan", "Kowalski", "123456789");
+        repository.saveAll(Arrays.asList(company, company2, person));
+
+        //when
+        var customers = repository.findByNameStartingWith("Test");
+
+        //then
+        assertEquals(2, customers.size());
+
+    }
 }

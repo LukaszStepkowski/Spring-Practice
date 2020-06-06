@@ -8,5 +8,9 @@ import java.util.UUID;
 
 public interface CustomerRepository extends JpaRepository<Customer, UUID> {
 
+    // select * from Customer c where c.name = ?
     List<Customer> findByName(String name);
+
+    // select * from Customer c where c.name like
+    List<Customer> findByNameStartingWith(String name);
 }
