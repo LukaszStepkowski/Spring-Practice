@@ -8,6 +8,8 @@ import javax.persistence.Table;
 import java.util.Objects;
 import java.util.UUID;
 
+import static pl.sda.shopapp.util.Preconditions.requireNonNulls;
+
 @Entity
 @Table(name = "customer_addresses")
 public class Address {
@@ -25,6 +27,7 @@ public class Address {
     }
 
     public Address(String street, String city, String zipCode, String country) {
+        requireNonNulls(street, city, zipCode, country);
         this.id = UUID.randomUUID();
         this.street = street;
         this.city = city;
