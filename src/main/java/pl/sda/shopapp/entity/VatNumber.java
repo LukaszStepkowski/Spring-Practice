@@ -1,5 +1,6 @@
 package pl.sda.shopapp.entity;
 
+import pl.sda.shopapp.util.JpaOnly;
 import pl.sda.shopapp.util.Preconditions;
 
 import javax.persistence.Column;
@@ -11,6 +12,9 @@ public final class VatNumber {
 
     @Column(name = "vat_number")
     private String value;
+
+    @JpaOnly
+    private VatNumber() {}
 
     public VatNumber(String value){
         Preconditions.requireNonNulls(value);
