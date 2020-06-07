@@ -3,6 +3,7 @@ package pl.sda.shopapp;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 import pl.sda.shopapp.dto.CustomerQuery;
 import pl.sda.shopapp.entity.Person;
 import pl.sda.shopapp.repository.CustomerRepository;
@@ -12,6 +13,7 @@ import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
+@Transactional
 public class CustomerSpecTest {
 
     @Autowired
