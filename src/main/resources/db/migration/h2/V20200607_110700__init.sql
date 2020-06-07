@@ -5,7 +5,6 @@ create table addresses (
     street varchar(255),
     zip_code varchar(255),
     primary key (id));
-
 create table customers (
     customer_type varchar(31) not null,
     id binary not null,
@@ -15,7 +14,6 @@ create table customers (
     first_name varchar(255),
     last_name varchar(255),
     primary key (id));
-
 create table customers_addresses (
     customer_id binary not null,
     addresses_id binary not null);
