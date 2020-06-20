@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import pl.sda.shopapp.dto.GeocodeAddressDto;
-import pl.sda.shopapp.service.geocoding.GoogleGeocodingService;
+import pl.sda.shopapp.service.geocoding.GeocodingService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class GoogleGeocodingServiceTest {
 
     @Autowired
-    private GoogleGeocodingService addressService;
+    private GeocodingService addressService;
 
     @Test
     void testFindAddress() {
