@@ -18,7 +18,6 @@ public abstract class Customer {
 
     @Id
     private UUID id;
-
     private String name;
     private String taxId;
 
@@ -29,7 +28,7 @@ public abstract class Customer {
     protected Customer() {
     }
 
-    public Customer(String name, String taxId) {
+    protected Customer(String name, String taxId) {
         requireNonNulls(name, taxId);
         this.id = UUID.randomUUID();
         this.name = name;
@@ -49,10 +48,17 @@ public abstract class Customer {
         return taxId;
     }
 
-    public void addAddress(Address address){
+    public void addAddress(Address address) {
         if (!addresses.contains(address)) {
             addresses.add(address);
         }
+    }
+
+    public void removeAddress(UUID addressId) {
+        addresses.stream()
+                .filter(address -> address.getId().equals(addressId))
+                .findFirst()
+                .ifPresent(address -> addresses.remove(address));
     }
 
     public List<Address> getAddresses() {

@@ -1,10 +1,9 @@
 package pl.sda.shopapp.rest;
 
-import org.springframework.validation.annotation.Validated;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.sda.shopapp.dto.CreateCompanyDto;
-import pl.sda.shopapp.dto.CustomerQuery;
-import pl.sda.shopapp.dto.CustomerQueryResultDto;
+import pl.sda.shopapp.dto.*;
 import pl.sda.shopapp.service.CustomerService;
 
 import javax.validation.Valid;
@@ -30,7 +29,37 @@ public class CustomerRestController {
     }
 
     @PostMapping
-    UUID createCustomer(@RequestBody @Valid CreateCompanyDto dto) {
-        return service.createCompany(dto);
+    ResponseEntity<UUID> createCustomer(@RequestBody @Valid CreateCompanyDto dto) {
+        var id = service.createCompany(dto);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(id);
+    }
+
+    @PatchMapping(path = "/{customerId}/companyName")
+    ResponseEntity<Void> changeCompanyName(@PathVariable UUID customerId,
+                                           @RequestBody @Valid ChangeCompanyNameDto dto) {
+        service.changeCompanyName(customerId, dto.getName());
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping(path = "/{customerId}/addresses")
+    List<AddressDto> listAddresses(@PathVariable UUID customerId) {
+        return service.listAddresses(customerId);
+    }
+
+    @PostMapping(path = "/{customerId}/addresses")
+    ResponseEntity<Void> createAddress(@PathVariable UUID customerId,
+                                       @RequestBody @Valid CreateGeocodingAddressDto dto) {
+        service.createAddress(customerId, dto.getLatitude(), dto.getLongitude());
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .build();
+    }
+
+    @DeleteMapping(path = "/{customerId}/addresses/{addressId}")
+    ResponseEntity<Void> deleteAddress(@PathVariable UUID customerId, @PathVariable UUID addressId) {
+        service.deleteAddress(customerId, addressId);
+        return ResponseEntity.ok().build();
     }
 }
