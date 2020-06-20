@@ -5,10 +5,12 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.sda.shopapp.dto.CreateCompanyDto;
 import pl.sda.shopapp.dto.CustomerQuery;
 import pl.sda.shopapp.dto.CustomerQueryResultDto;
+import pl.sda.shopapp.entity.Address;
 import pl.sda.shopapp.entity.Company;
 import pl.sda.shopapp.entity.VatNumber;
 import pl.sda.shopapp.repository.CustomerRepository;
 import pl.sda.shopapp.repository.CustomerSpec;
+import pl.sda.shopapp.service.geocoding.GeocodingService;
 
 import java.util.List;
 import java.util.UUID;
@@ -21,11 +23,13 @@ public class CustomerService {
 
     private final CustomerRepository repository;
     private final CustomerMapper mapper;
+    private final GeocodingService addressService;
 
-    public CustomerService(CustomerRepository repository, CustomerMapper mapper) {
+    public CustomerService(CustomerRepository repository, CustomerMapper mapper, GeocodingService addressService) {
         requireNonNulls(repository, mapper);
         this.repository = repository;
         this.mapper = mapper;
+        this.addressService = addressService;
     }
 
     @Transactional
@@ -38,6 +42,15 @@ public class CustomerService {
     public List<CustomerQueryResultDto> findCustomer(CustomerQuery query) {
         var customers = repository.findAll(CustomerSpec.withQuery(query));
         return mapper.map(customers);
+    }
+
+    @Transactional
+    public void createAddress(UUID customerId, double latitude, double longitude) {
+        var address = addressService.find(latitude, longitude);
+        var customer = repository.getOne(customerId);
+        customer.addAddress(new Address(
+                address.getStreet(), address.getCity(), address.getZipCode(), address.getCountry()));
+        repository.save(customer);
     }
 
 }

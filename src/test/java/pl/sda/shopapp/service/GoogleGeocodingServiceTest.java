@@ -1,18 +1,18 @@
 package pl.sda.shopapp.service;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import pl.sda.shopapp.dto.GoogleAddressDto;
+import pl.sda.shopapp.dto.GeocodeAddressDto;
+import pl.sda.shopapp.service.geocoding.GoogleGeocodingService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-public class GoogleAddressServiceTest {
+public class GoogleGeocodingServiceTest {
 
     @Autowired
-    private GoogleAddressService addressService;
+    private GoogleGeocodingService addressService;
 
     @Test
     void testFindAddress() {
@@ -21,9 +21,9 @@ public class GoogleAddressServiceTest {
         var longitude = 20.876190;
 
         // when
-        var address = addressService.findAddress(latitude, longitude);
+        var address = addressService.find(latitude, longitude);
 
         // then
-        assertEquals(new GoogleAddressDto("Spychowska 2A", "01-472", "Warszawa", "PL"), address);
+        assertEquals(new GeocodeAddressDto("Spychowska 2A", "01-472", "Warszawa", "PL"), address);
     }
 }
