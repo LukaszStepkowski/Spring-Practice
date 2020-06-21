@@ -15,9 +15,12 @@ public class Authority {
     @Id
     private UUID id;
 
+    private String username;
+
     private String authority;
 
-    public Authority(String authority) {
+    public Authority(String username, String authority) {
+        this.username = username;
         this.authority = authority;
     }
 
@@ -27,6 +30,10 @@ public class Authority {
 
     public UUID getId() {
         return id;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public String getAuthority() {

@@ -21,7 +21,7 @@ class UserMapper {
         var user = new User(dto.getUsername(), encoder.encode(dto.getPassword()), true);
         user.addAuthorities(dto.getRoles()
                 .stream()
-                .map(role -> new Authority("ROLE_" + role))
+                .map(role -> new Authority(dto.getUsername(), "ROLE_" + role))
                 .collect(toList()));
         return user;
     }
