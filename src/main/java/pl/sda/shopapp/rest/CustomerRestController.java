@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.shopapp.dto.*;
-import pl.sda.shopapp.service.CustomerService;
+import pl.sda.shopapp.service.customer.CustomerService;
 
 import javax.validation.Valid;
 import java.util.List;

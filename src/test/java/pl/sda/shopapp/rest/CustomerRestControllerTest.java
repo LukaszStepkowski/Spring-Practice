@@ -6,7 +6,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import pl.sda.shopapp.service.CustomerService;
+import pl.sda.shopapp.service.customer.CustomerService;
 
 import java.util.UUID;
 

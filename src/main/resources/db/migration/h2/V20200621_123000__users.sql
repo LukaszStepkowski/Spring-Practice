@@ -4,6 +4,7 @@ create table users(
     enabled boolean not null);
 
 create table authorities (
+    id binary not null primary key,
     username varchar_ignorecase(50) not null,
     authority varchar_ignorecase(50) not null,
     constraint fk_authorities_users foreign key(username) references users(username));

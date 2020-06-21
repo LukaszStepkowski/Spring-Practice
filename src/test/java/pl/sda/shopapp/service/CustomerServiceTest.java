@@ -12,6 +12,7 @@ import pl.sda.shopapp.entity.Company;
 import pl.sda.shopapp.entity.Person;
 import pl.sda.shopapp.entity.VatNumber;
 import pl.sda.shopapp.repository.CustomerRepository;
+import pl.sda.shopapp.service.customer.CustomerService;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.*;

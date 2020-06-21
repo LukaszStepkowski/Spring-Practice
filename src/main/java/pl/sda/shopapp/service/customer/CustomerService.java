@@ -1,4 +1,4 @@
-package pl.sda.shopapp.service;
+package pl.sda.shopapp.service.customer;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
